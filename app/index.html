@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh-cn" ng-app="haoWebApp">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>好笔头报表</title>
+    <link rel="stylesheet" href="bower_components\bootstrap\dist\css\bootstrap.css"/>
+    <link rel="stylesheet" href="css\app.css"/>
+
+    <link rel="stylesheet" href="bower_components\angular-ui-grid\ui-grid.css"/>
+    <link rel="stylesheet" href="bower_components/angular-ui-tree/dist/angular-ui-tree.min.css"/>
+
+    <script src="bower_components/jquery/jquery.js"></script>
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/angular-animate/angular-animate.js"></script>
+    <script src="bower_components/angular-resource/angular-resource.js"></script>
+    <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+    <script src="bower_components/angular-ui-grid/ui-grid.js"></script>
+    <script src="bower_components/angular-ui-tree/dist/angular-ui-tree.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+
+    <script src="js\app.js"></script>
+    <script src="js\animations.js"></script>
+    <script src="js\controllers.js"></script>
+    <script src="js\filters.js"></script>
+    <script src="js\services.js"></script>
+</head>
+<body>
+<div class="navbar navbar-default navbar-fixed-top">
+
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" ui-sref="home">Report</a>
+        </div>
+
+        <!-- Here is a named ui-view. ui-views don't have to be named, but we'll populate this
+             one from various different child states and we want a name to help us target. -->
+        <p ui-view="hint" class="navbar-text pull-right">31231423</p>
+    </div>
+
+</div>
+
+<div ui-view></div>
+
+</body>
+</html>
