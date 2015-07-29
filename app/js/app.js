@@ -42,7 +42,7 @@ haoWeb.config(['$stateProvider', '$urlRouterProvider',
                         'repDetail@home':{
                             templateProvider: ['$stateParams','$http',
                                 function ($stateParams,$http) {
-                                    var urlPath = '/tpls/report'+$stateParams.repId + ".html";
+                                    var urlPath = 'tpls/report'+$stateParams.repId + ".html";
                                     return $http.get(urlPath).then(function(tpl){
                                         return tpl.data;
                                     })
