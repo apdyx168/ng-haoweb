@@ -27,26 +27,29 @@ haoWeb.config(['$stateProvider', '$urlRouterProvider',
                         '': {
                             templateUrl: 'tpls/home.html'
                         },
-                        'repDetail@home': {},
+
                         'repList@home': {
                             templateUrl: 'tpls/repList.html',
                             controller: 'repListCtrl'
                         }
                     }
                 }).
-                state('home.detail', {
-                    url: '/:repId',
-                    views: {
-                        'repDetail@home': {
-                            templateProvider: ['$stateParams', 'repTplsSrv',
-                                function ($stateParams, repTplsSrv) {
-                                   return repTplsSrv.getTplsContent($stateParams.repId).then(function(tpl){
-                                       return tpl.data;
-                                   })
-                                }
-                            ]
-                        }
-                    }
+                state('home.root', {
+                    url: '/{repId:[0-9]{1,4}}',
+                    templateUrl: 'tpls/repDetail.html'
+                }).
+                state('home.repCustAnalysisOne', {
+                    url: '/repCustAnalysisOne',
+                    templateUrl: 'tpls/repCustAnalysis1.html'
+                }).
+                state('home.repCustAnalysisTwo', {
+                    url: '/repCustAnalysisTwo',
+                    templateUrl: 'tpls/repCustAnalysis2.html'
+                }).
+                state('home.repCustAnalysisThree', {
+                    url: '/repCustAnalysisThree',
+                    templateUrl: 'tpls/repCustAnalysis3.html'
                 })
+
         }]
 );

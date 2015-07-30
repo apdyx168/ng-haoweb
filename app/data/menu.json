@@ -2,24 +2,24 @@
     {
       "id": "1",
       "name": "按客户数量统计",
-      "url": "10",
+      "url": "home.root({repId:10})",
       "menus": [
         {
           "id": "2",
           "name": "按客户本统计",
-          "url": "repCustAnalysis1",
+          "url": "home.repCustAnalysisOne",
           "menus": []
         },
         {
           "id": "3",
           "name": "按标签统计",
-          "url": "repCustAnalysis2",
+          "url": "home.repCustAnalysisTwo",
           "menus": []
         },
         {
           "id": "4",
           "name": "按字段统计",
-          "url": "repCustAnalysis3",
+          "url": "home.repCustAnalysisThree",
           "menus": []
         }
       ]

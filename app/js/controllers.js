@@ -10,13 +10,13 @@ haoWebControllers.controller('repListCtrl', ['$scope', 'repMenuSrv',
     }
 ]);
 
-haoWebControllers.constructor('repCustAnalysis1Ctrl', ['$scope',
+haoWebControllers.controller('repCustAnalysis1Ctrl', ['$scope',
     function ($scope) {
         $scope.data = 'test';
     }]);
 
 
-haoWebControllers.constructor('repDetailCtrl', ['$scope',
+haoWebControllers.controller('repDetailCtrl', ['$scope',
     function ($scope) {
         $scope.data = 'detail';
     }]);
