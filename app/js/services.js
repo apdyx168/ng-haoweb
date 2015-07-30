@@ -5,7 +5,7 @@ haoWebServices.factory('repMenuSrv', ['$http',
     function ($http) {
         var menuSrv = {};
         var menuUrl = 'data/menu.json';
-        menuSrv.getMenus = function(){
+        menuSrv.getMenus = function () {
             return $http.get(menuUrl).success(function (data) {
                 return data.data;
             });
@@ -14,11 +14,15 @@ haoWebServices.factory('repMenuSrv', ['$http',
     }
 ]);
 
-haoWebServices.factory('repTplsSrv',['$http',
+haoWebServices.factory('repTplsSrv', ['$http',
     function ($http) {
         var tplSrv = {};
-        tplSrv.getTplsConten = function(tplName){
-            return $http.get('tpls/'+tplName+'.html');
+        tplSrv.getTplsContent = function (tplName) {
+            var reg = /^[0-9]{1,4}/;
+            if (tplName.match(reg)) {
+                tplName = 'repDetail';
+            }
+            return $http.get('tpls/' + tplName + '.html');
         }
         return tplSrv;
     }
