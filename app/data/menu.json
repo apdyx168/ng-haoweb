@@ -1,0 +1,39 @@
+﻿ [
+    {
+      "id": "1",
+      "name": "按客户数量统计",
+      "url": "",
+      "menus": [
+        {
+          "id": "2",
+          "name": "按客户本统计",
+          "url": "repCustAnalysis1",
+          "menus": []
+        },
+        {
+          "id": "3",
+          "name": "按标签统计",
+          "url": "repCustAnalysis2",
+          "menus": []
+        },
+        {
+          "id": "4",
+          "name": "按字段统计",
+          "url": "repCustAnalysis3",
+          "menus": []
+        }
+      ]
+    },
+    {
+      "id": "5",
+      "name": "新增客户排行榜",
+      "url": "repNewCustRanking",
+      "menus": []
+    },
+    {
+      "id": "6",
+      "name": "跟单排行榜",
+      "url": "repCustNoteRanking",
+      "menus": []
+    }
+  ]

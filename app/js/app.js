@@ -7,7 +7,8 @@ haoWeb = angular.module('haoWebApp', [
     'ngAnimate',
     'ui.router',
     'ui.grid',
-    'haoWebControllers'
+    'haoWebControllers',
+    'haoWebServices'
 ]);
 
 haoWeb.run(['$rootScope', '$state', '$stateParams',
@@ -24,12 +25,9 @@ haoWeb.config(['$stateProvider', '$urlRouterProvider',
                     url: '/',
                     views: {
                         '': {
-                            templateUrl: 'tpls/home.html',
+                            templateUrl: 'tpls/home.html'
                         },
-                        'repDetail@home': {
-                            templateUrl: 'tpls/repDetail.html'
-
-                        },
+                        'repDetail@home': {},
                         'repList@home': {
                             templateUrl: 'tpls/repList.html',
                             controller: 'repListCtrl'
@@ -37,16 +35,16 @@ haoWeb.config(['$stateProvider', '$urlRouterProvider',
                     }
                 }).
                 state('home.detail', {
-                    url:':repId',
-                    views:{
-                        'repDetail@home':{
-                            templateProvider: ['$stateParams','$http',
-                                function ($stateParams,$http) {
-                                    var urlPath = 'tpls/report'+$stateParams.repId + ".html";
-                                    return $http.get(urlPath).then(function(tpl){
-                                        return tpl.data;
-                                    })
-                                }]
+                    url: ':repId',
+                    views: {
+                        'repDetail@home': {
+                            templateProvider: ['$stateParams', 'repTplsSrv',
+                                function ($stateParams, repTplsSrv) {
+                                   return repTplsSrv.getTplsConten($stateParams.repId).then(function(tpl){
+                                       return tpl.data;
+                                   })
+                                }
+                            ]
                         }
                     }
                 }
