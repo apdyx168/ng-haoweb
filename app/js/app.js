@@ -19,10 +19,10 @@ haoWeb.run(['$rootScope', '$state', '$stateParams',
 
 haoWeb.config(['$stateProvider', '$urlRouterProvider',
         function ($stateProvider, $urlRouterProvider) {
-            $urlRouterProvider.otherwise('/');
+            $urlRouterProvider.otherwise('/report');
             $stateProvider.
                 state('home', {
-                    url: '/',
+                    url: '/report',
                     views: {
                         '': {
                             templateUrl: 'tpls/home.html'
@@ -35,19 +35,18 @@ haoWeb.config(['$stateProvider', '$urlRouterProvider',
                     }
                 }).
                 state('home.detail', {
-                    url: ':repId',
+                    url: '/:repId',
                     views: {
                         'repDetail@home': {
                             templateProvider: ['$stateParams', 'repTplsSrv',
                                 function ($stateParams, repTplsSrv) {
-                                   return repTplsSrv.getTplsConten($stateParams.repId).then(function(tpl){
+                                   return repTplsSrv.getTplsContent($stateParams.repId).then(function(tpl){
                                        return tpl.data;
                                    })
                                 }
                             ]
                         }
                     }
-                }
-            )
+                })
         }]
 );
