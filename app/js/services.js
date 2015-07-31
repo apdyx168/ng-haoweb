@@ -1,5 +1,5 @@
 'use stack';
-var haoWebServices = angular.module('haoWebServices', []);
+var haoWebServices = angular.module('haoWebServices', ['ngResource']);
 
 haoWebServices.factory('repMenuSrv', ['$http',
     function ($http) {
@@ -11,19 +11,13 @@ haoWebServices.factory('repMenuSrv', ['$http',
             });
         }
         return menuSrv
-    }
-]);
+    }]);
 
-haoWebServices.factory('repTplsSrv', ['$http',
-    function ($http) {
-        var tplSrv = {};
-        tplSrv.getTplsContent = function (tplName) {
-            var reg = /^[0-9]{1,4}/;
-            if (tplName.match(reg)) {
-                tplName = 'repDetail';
-            }
-            return $http.get('tpls/' + tplName + '.html');
-        }
-        return tplSrv;
-    }
-]);
+haoWebServices.factory('repDataSrv', ['$resource',
+    function ($resource) {
+        return $resource('data/:repName.json',{},{
+            getCustAnalysisOne:{method:'GET',params:{ repName: 'custAnalysisOne' },isArray:true},
+            getCustAnalysisTwo:{method:'GET',params:{repName: 'custAnalysisTwo' } ,isArray:true},
+            getCustAnalysisThree:{method:'GET',params:{repName:'custAnalysisThree'} ,isArray:true}
+        });
+    }])

@@ -5,10 +5,12 @@
 haoWeb = angular.module('haoWebApp', [
     'ngResource',
     'ngAnimate',
+    'ng-fusioncharts',
     'ui.router',
     'ui.grid',
     'haoWebControllers',
-    'haoWebServices'
+    'haoWebServices',
+    'haoWebDirectives'
 ]);
 
 haoWeb.run(['$rootScope', '$state', '$stateParams',
