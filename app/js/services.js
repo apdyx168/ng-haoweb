@@ -18,6 +18,7 @@ haoWebServices.factory('repDataSrv', ['$resource',
         return $resource('data/:repName.json',{},{
             getCustAnalysisOne:{method:'GET',params:{ repName: 'custAnalysisOne' },isArray:true},
             getCustAnalysisTwo:{method:'GET',params:{repName: 'custAnalysisTwo' } ,isArray:true},
-            getCustAnalysisThree:{method:'GET',params:{repName:'custAnalysisThree'} ,isArray:true}
+            getCustAnalysisThree:{method:'GET',params:{repName:'custAnalysisThree'} ,isArray:true},
+            getUsers:{method:'GET',params: { repName: 'users' },isArray:true}
         });
     }])

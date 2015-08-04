@@ -1,12 +1,19 @@
 /**
  * Created by 英学 on 2015/7/31.
  */
-var haoWebDirectives = angular.module('haoWebDirectives',[]);
+var haoWebDirectives = angular.module('haoWebDirectives', []);
 
-haoWebDirectives.directive('haoWebUsers',function(){
+haoWebDirectives.directive('haoWebUsers', ['repDataSrv', function (repDataSrv) {
     return {
         "restrict": "EA",
-        "template": "<div>haoWebUsers</div>",
-        "replace": true
-    };
-});
+        "templateUrl": "tpls/dirHaoUsers.html",
+        "transclude": true,
+        "scope": {
+            "user": '='
+        },
+        "link": function (scope) {
+            scope.userList = repDataSrv.getUsers();
+        }
+    }
+
+}]);
