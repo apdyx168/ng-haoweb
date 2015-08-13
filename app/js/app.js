@@ -24,12 +24,11 @@ haoWeb.config(['$stateProvider', '$urlRouterProvider',
             $urlRouterProvider.otherwise('/report');
             $stateProvider.
                 state('home', {
-                    url: '/report',
+                    url: '/report/:sessionID',
                     views: {
                         '': {
                             templateUrl: 'tpls/home.html'
                         },
-
                         'repList@home': {
                             templateUrl: 'tpls/repList.html',
                             controller: 'repListCtrl'
