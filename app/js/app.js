@@ -8,6 +8,7 @@ haoWeb = angular.module('haoWebApp', [
     'ng-fusioncharts',
     'ui.router',
     'ui.grid',
+    'isteven-multi-select',
     'haoWebControllers',
     'haoWebServices',
     'haoWebDirectives'

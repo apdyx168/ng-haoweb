@@ -15,86 +15,88 @@ haoWebControllers.controller('repDetailCtrl', ['$scope',
         $scope.data = 'detail';
     }]);
 
-haoWebControllers.controller('repCustAnalysis1Ctrl', ['$scope', 'i18nService', 'repDataSrv',
-    function ($scope, i18nService, repDataSrv) {
+haoWebControllers.controller('repCustAnalysis1Ctrl', ['$scope', 'i18nService', 'repCommonSrv', 'repWebSrv',
+    function ($scope, i18nService, repCommonSrv, repWebSrv) {
         i18nService.setCurrentLang('zh-cn');
-        $scope.data = repDataSrv.getCustAnalysisOne();
-        $scope.gridOptions = {
-            enableSorting: false,
-            columnDefs: [
-                {name: '客户本', field: 'item_name'},
-                {name: '数量', field: 'item_num'}
-            ],
-            data: $scope.data
-        };
-    }]);
+        $scope.myDataSource = {};
+        $scope.gridOptions = {};
+        $scope.retrieve = function () {
+            repWebSrv.getCustAnalysisOne($scope.user.item_id).get(function (data) {
+                var result = data.table;
+                var obj = repCommonSrv.generateMslineCharData(result);
 
-haoWebControllers.controller('repCustAnalysis2Ctrl', ['$scope', 'repDataSrv',
-    function ($scope, repDataSrv) {
-        var data = repDataSrv.getCustAnalysisTwo();
-        $scope.myDataSource = {
-            "chart": {
-                "caption": "按标签统计客户数量",
-                "subCaption": "前十笔记录",
-                "theme": "fint",
+                $scope.myDataSource = {
+                    "chart": {
+                        "caption": "客户数量统计",
+                        "subcaption": "按客户本",
+                        "plotgradientcolor": "",
+                        "bgcolor": "FFFFFF",
+                        "showalternatehgridcolor": "0",
+                        "divlinecolor": "CCCCCC",
+                        "showvalues": "0",
+                        "showcanvasborder": "0",
+                        "canvasborderalpha": "0",
+                        "canvasbordercolor": "CCCCCC",
+                        "canvasborderthickness": "1",
+                        "captionpadding": "30",
+                        "linethickness": "3",
+                        "yaxisvaluespadding": "15",
+                        "legendshadow": "0",
+                        "legendborderalpha": "0",
+                        "palettecolors": "#f8bd19,#008ee4,#33bdda,#e44a00,#6baa01,#583e78",
+                        "showborder": "0"
+                    },
+                    "categories": obj.categories,
+                    "dataset": obj.dataset
+                };
+                $scope.gridOptions = {
+                    enableSorting: false,
+                    columnDefs: [
+                        {name: '客户本', field: 'item_name'},
+                        {name: '数量', field: 'item_count'}
+                    ],
+                    data: result
+                };
+            })
+        }
+    }
+]);
 
-                "usePlotGradientColor": "1"
-            },
-            data: data
+haoWebControllers.controller('repCustAnalysis2Ctrl', ['$scope', 'repWebSrv', 'repCommonSrv',
+    function ($scope, repWebSrv, repCommonSrv) {
+        $scope.myDataSource = {};
+        $scope.retrieve = function () {
+            repWebSrv.getCustAnalysisTwo($scope.user.item_id).get(function (data) {
+                var result = data.table;
+                var obj = repCommonSrv.generate2DCharData(result);
+
+                $scope.myDataSource = {
+                    "chart": {
+                        "caption": "按标签统计客户数量",
+                        "subCaption": "前十笔记录",
+                        "theme": "fint",
+                        "usePlotGradientColor": "1"
+                    },
+                    data: obj.data
+                };
+            })
         };
     }
 ]);
 
-haoWebControllers.controller('repCustAnalysis3Ctrl', ['$scope', 'repWebSrv',
-    function ($scope, repWebSrv) {
+haoWebControllers.controller('repCustAnalysis3Ctrl', ['$scope', 'repWebSrv', 'repCommonSrv',
+    function ($scope, repWebSrv, repCommonSrv) {
         $scope.myDataSource = {};
         $scope.retrieve = function () {
             var repUser = $scope.user.item_id;
             var repColName = $scope.custCol.typecol_column;
             repWebSrv.getCustAnalysisThree(repUser, repColName).get(function (data) {
                 var result = data.table;
-                var category = [];
-                var dataset = [];
-                var objLabel = {};
-                var objData = {};
-                var labelId = 0
-                var dataId = 0;
-                for (var i = 0; i < result.length; i++) {
-                    var itemId = result[i].item_id;
-                    var itemName = result[i].item_name;
-                    var itemUser = result[i].item_user;
-                    var itemUserName = result[i].item_username;
-                    var itemCount = result[i].item_count;
-
-                    if (objLabel[itemId] == undefined) {
-                        objLabel[itemId] = labelId;
-                        labelId++;
-                        category.push({
-                            "label": itemName
-                        });
-                    }
-
-                    if (objData[itemUser] == undefined) {
-                        objData[itemUser] = dataId;
-                        dataId++;
-                        dataset.push({
-                            "seriesname": itemUserName,
-                            "data": []
-                        })
-                        console.log(itemUser);
-                        console.log(objData);
-                        console.log(objLabel);
-                    }
-
-                    dataset[objData[itemUser]].data[objLabel[itemId]] = {
-                        "value": itemCount
-                    };
-                }
-
+                var obj = repCommonSrv.generateMslineCharData(result);
                 $scope.myDataSource = {
                     "chart": {
-                        "caption": "Daily Visits",
-                        "subcaption": "(from 8/6/2013 to 8/12/2013)",
+                        "caption": "客户数量统计",
+                        "subcaption": "按自定义字段",
                         "linethickness": "1",
                         "showvalues": "0",
                         "formatnumberscale": "0",
@@ -115,16 +117,10 @@ haoWebControllers.controller('repCustAnalysis3Ctrl', ['$scope', 'repWebSrv',
                         "vdivlinealpha": "20",
                         "showborder": "0"
                     },
-                    "categories": [
-                        {
-                            "category": category
-                        }
-                    ],
-                    "dataset": dataset
+                    "categories": obj.categories,
+                    "dataset": obj.dataset
                 };
             });
         };
-
-
     }
 ]);

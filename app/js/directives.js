@@ -3,7 +3,7 @@
  */
 var haoWebDirectives = angular.module('haoWebDirectives', []);
 
-haoWebDirectives.directive('haoWebUsers', ['repWebSrv', function (repWebSrv) {
+haoWebDirectives.directive('haoWebUsers', ['repWebSrv', 'repCommonSrv', function (repWebSrv, repCommonSrv) {
     return {
         "restrict": "EA",
         "templateUrl": "tpls/dirHaoUsers.html",
@@ -12,8 +12,21 @@ haoWebDirectives.directive('haoWebUsers', ['repWebSrv', function (repWebSrv) {
             "user": '='
         },
         "link": function (scope) {
-            repWebSrv.getUserList().get(function (data) {
-                scope.userList = data.table;
+            scope.userList = [];
+            scope.user = {
+                "item_id": ''
+            };
+            repWebSrv.getUserList().then(function (data) {
+                scope.userList = repCommonSrv.generateUserList(data);
+            });
+
+            scope.$watch('outUser', function () {
+                scope.user.item_id = '';
+                if (scope.outUser == null) return;
+                angular.forEach(scope.outUser, function (value) {
+                    if (value.id == undefined) return;
+                    scope.user.item_id += value.id + ',';
+                })
             });
         }
     }
